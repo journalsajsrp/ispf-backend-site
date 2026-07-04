@@ -6,28 +6,26 @@ const app = express();
 app.use(express.json());
 app.use(express.static('public'));
 
-// 1. رابط قاعدة البيانات المباشر
-const mongoURI = 'mongodb+srv://test:123456@cluster0.sboz5yb.mongodb.net/ispf_database?retryWrites=true&w=majority';
+// 1. رابط قاعدة البيانات المباشر والصحيح بعد دمج اسم المستخدم وكلمة المرور الخاصة بك
+const mongoURI = 'mongodb+srv://admin:Ispf2026Password@cluster0.sbcz5yb.mongodb.net/ispf_database?retryWrites=true&w=majority&appName=Cluster0';
 
-// تعطيل الـ Buffering إجبارياً لمنع السيرفر من التعليق والانتظار دون فائدة
-mongoose.set('bufferCommands', false);
+// إعادة تفعيل الـ Buffering للوضع المستقر والطبيعي بعد تعديل الرابط بنجاح
+mongoose.set('bufferCommands', true);
 
 // الاتصال المباشر بقاعدة البيانات
-mongoose.connect(mongoURI, {
-    serverSelectionTimeoutMS: 5000 // قطع المحاولة فوراً بعد 5 ثوانٍ وإظهار المشكلة
-})
+mongoose.connect(mongoURI)
 .then(() => console.log('✅ Connected to MongoDB successfully!'))
 .catch((err) => console.error('❌ Could not connect to MongoDB:', err));
 
-// 2. النماذج (Schemas) مع تعطيل الـ Buffer لكل نموذج على حدة
-const announcementSchema = new mongoose.Schema({ text: String }, { bufferCommands: false });
+// 2. النماذج (Schemas)
+const announcementSchema = new mongoose.Schema({ text: String });
 const Announcement = mongoose.model('Announcement', announcementSchema);
 
 const fileSchema = new mongoose.Schema({
     title: { type: String, required: true },
     fileUrl: { type: String, required: true },
     createdAt: { type: Date, default: Date.now }
-}, { bufferCommands: false });
+});
 const JournalFile = mongoose.model('JournalFile', fileSchema);
 
 // 3. مسار جلب البيانات للموقع
@@ -45,7 +43,7 @@ app.get('/api/data', async (req, res) => {
 app.post('/api/update-announcement', async (req, res) => {
     const { newText, password, fileTitle, fileUrl } = req.body;
     
-    // استخدام كلمة المرور الصارمة
+    // استخدام كلمة المرور الصارمة للوحة تحكم الموقع
     const validPassword = process.env.ADMIN_PASSWORD || 'ispf2026';
     
     if (password !== validPassword) {
@@ -62,7 +60,6 @@ app.post('/api/update-announcement', async (req, res) => {
         }
         res.send('تم تحديث البيانات بنجاح في قاعدة البيانات السحابية!');
     } catch (err) {
-        // إرجاع تفاصيل الخطأ الحقيقية للمتصفح مباشرة
         res.status(500).send('حدث خطأ أثناء التحديث: ' + err.message);
     }
 });
