@@ -6,12 +6,6 @@
     <title>المؤسسة الدولية للنشر العلمي | ISPF</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./style.css">
-    <style>
-        /* إضافات بسيطة لضمان عمل القائمة الجانبية بشكل جيد */
-        #sidebarMenu { display: none; }
-        #sidebarMenu.open { display: block; }
-        @media (min-width: 768px) { #sidebarMenu { display: block !important; } }
-    </style>
 </head>
 <body>
 
@@ -27,13 +21,9 @@
 
     <header class="main-header">
         <div class="container header-flex">
-            <button class="hamburger-menu" onclick="toggleMenu()" aria-label="قائمة التنقل">
-                ☰ قائمة الموقع
-            </button>
+            <button class="hamburger-menu" onclick="toggleMenu()" aria-label="قائمة التنقل">☰ قائمة الموقع</button>
             <div class="logo-container">
-                <a href="#">
-                    <img src="./pageHeaderTitleImage_ar.png" alt="المؤسسة الدولية للنشر العلمي" class="site-logo">
-                </a>
+                <a href="#"><img src="./pageHeaderTitleImage_ar.png" alt="المؤسسة الدولية للنشر العلمي" class="site-logo"></a>
             </div>
             <nav class="navbar" id="sidebarMenu">
                 <ul class="nav-links">
@@ -66,72 +56,51 @@
         <div class="container">
             <div class="ads-box">
                 <div class="ads-badge">📢 إعلاناتنا اليومية</div>
-                <div class="ads-ticker" id="adsContainer">
-                    <p id="announcement-text">جاري تحميل الإعلان اليومي من السيرفر السحابي...</p>
-                </div>
+                <div class="ads-ticker"><p id="announcement-text">جاري تحميل الإعلان...</p></div>
             </div>
         </div>
     </section>
 
-    <!-- باقي الأقسام كما هي في تصميمك -->
     <section class="about-section" id="about">
         <div class="container">
-            <!-- المحتوى موجود مسبقاً -->
+            <div class="about-grid">
+                <div class="about-box"><h3>🎯 هدفنا ورؤيتنا</h3><p>نهدف للمساهمة بالنشر العلمي في جميع الاختصاصات لتعزيز البحث العلمي والكتابة الأكاديمية.</p></div>
+                <div class="about-box"><h3>📜 النشأة والتأسيس</h3><p>أنشئت المؤسسة عبر الإنترنت عام 2016م.</p></div>
+            </div>
         </div>
     </section>
 
     <section class="download-center-section" id="library">
         <div class="container">
-            <h2 class="section-title">📚 المكتبة الرقمية ومركز تحميل الملفات</h2>
-            <div class="files-grid" id="files-list" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-top: 20px;">
-                <p style="color: #64748b; grid-column: 1/-1; text-align: center;">جاري تحميل الملفات من قاعدة البيانات...</p>
+            <h2 class="section-title">📚 المكتبة الرقمية</h2>
+            <div class="files-grid" id="files-list">
+                <p style="text-align: center;">جاري تحميل الملفات...</p>
             </div>
         </div>
     </section>
 
-    <!-- تذييل الصفحة -->
     <footer class="main-footer">
-        <div class="container">
-            <p>&copy; 2026 جميع الحقوق محفوظة للمؤسسة الدولية للنشر العلمي (ISPF).</p>
-        </div>
+        <div class="container"><p>&copy; 2026 جميع الحقوق محفوظة للمؤسسة الدولية للنشر العلمي.</p></div>
     </footer>
 
     <script>
-        function toggleMenu() {
-            const menu = document.getElementById('sidebarMenu');
-            menu.classList.toggle('open');
-        }
+        function toggleMenu() { document.getElementById('sidebarMenu').classList.toggle('open'); }
 
         async function loadData() {
             try {
                 const response = await fetch('/api/data');
                 const data = await response.json();
-
-                if(data.announcement) {
-                    document.getElementById('announcement-text').innerText = data.announcement;
-                }
-
+                if(data.announcement) document.getElementById('announcement-text').innerText = data.announcement;
+                
                 const filesListDiv = document.getElementById('files-list');
-                filesListDiv.innerHTML = ''; 
-
-                if (!data.files || data.files.length === 0) {
-                    filesListDiv.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #64748b;">لا توجد ملفات مرفوعة حالياً.</p>';
-                    return;
+                filesListDiv.innerHTML = '';
+                if(data.files) {
+                    data.files.forEach(file => {
+                        filesListDiv.innerHTML += `<div><h4>${file.title}</h4><a href="${file.fileUrl}">📥 تحميل</a></div>`;
+                    });
                 }
-
-                data.files.forEach(file => {
-                    const fileCard = document.createElement('div');
-                    fileCard.style = "background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center;";
-                    fileCard.innerHTML = `
-                        <div style="font-size: 30px;">📄</div>
-                        <h4>${file.title}</h4>
-                        <a href="${file.fileUrl}" download style="background: #0284c7; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none;">📥 تحميل</a>
-                    `;
-                    filesListDiv.appendChild(fileCard);
-                });
             } catch (error) {
-                console.error('Error:', error);
-                document.getElementById('announcement-text').innerText = "بدء استقبال الأبحاث والأوراق العلمية للنشر في المجلات المدرجة Scopus لعام 2026م.";
+                document.getElementById('announcement-text').innerText = "أهلاً بكم في المؤسسة الدولية للنشر العلمي.";
             }
         }
         window.onload = loadData;
