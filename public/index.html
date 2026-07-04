@@ -38,7 +38,7 @@
                     <li><a href="#team" onclick="toggleMenu()">الإدارة وفريق العمل</a></li>
                     <li><a href="#partners" onclick="toggleMenu()">الاعتمادات الدولية</a></li>
                     <li><a href="#contact" onclick="toggleMenu()">اتصل بنا</a></li>
-                    <li><a href="./login.html" class="btn-login">تسجيل الدخول</a></li>
+                    <li><a href="/login" class="btn-login">تسجيل الدخول</a></li>
                 </ul>
             </nav>
         </div>
@@ -50,20 +50,18 @@
             <p class="en-sub">International Scientific Publishing Foundation</p>
             <p class="hero-desc">مؤسسة بحثية أكاديمية متخصصة، نعمل بشكل إلكتروني على نطاق واسع لمساعدة الباحثين وطلبة الدراسات العليا في نشر بحوثهم في أرقى المجلات العالمية لجميع الاختصاصات.</p>
             <div class="hero-buttons">
-                <a href="./login.html" class="btn btn-primary">بوابة تسجيل الدخول</a>
+                <a href="/login" class="btn btn-primary">بوابة تسجيل الدخول</a>
                 <a href="https://wa.me/970599239760" target="_blank" class="btn btn-secondary">تواصل عبر واتساب</a>
             </div>
         </div>
     </section>
 
-    <!-- قسم الإعلانات: تم ربطه ديناميكياً ليقرأ من السيرفر -->
     <section class="ads-section">
         <div class="container">
             <div class="ads-box">
                 <div class="ads-badge">📢 إعلاناتنا اليومية</div>
                 <div class="ads-ticker" id="adsContainer">
-                    <!-- الإعلان الافتراضي يظهر هنا حتى يكتمل تحميل البيانات -->
-                    <p>✨ بدء استقبال الأبحاث والأوراق العلمية للنشر في المجلات المدرجة ضمن قواعد بيانات Scopus و Clarivate لشهري يوليو وأغسطس 2026م.</p>
+                    <p id="announcement-text">جاري تحميل الإعلان اليومي من السيرفر السحابي...</p>
                 </div>
             </div>
         </div>
@@ -141,26 +139,24 @@
         </div>
     </section>
 
-    <!-- قسم المكتبة الرقمية: مدمج مع نظام جلب الملفات التلقائي -->
     <section class="download-center-section" id="library">
         <div class="container">
             <h2 class="section-title">📚 المكتبة الرقمية ومركز تحميل الملفات</h2>
             <p class="library-desc">
-                تصفح وحمل أحدث المجلات العلمية، شروط النشر المحدثة، الأدلة الأكاديمية، والنماذج المرفوعة مباشرة من الإدارة:
+                تصفح وحمل أحدث المجلات العلمية والأدلة الأكاديمية المرفوعة مباشرة وحصرياً من إدارة المؤسسة:
             </p>
              
-            <!-- شبكة عرض الملفات المرفوعة ديناميكياً من لوحة التحكم -->
-            <div class="files-grid" id="filesContainer" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-top: 20px;">
-                <!-- سيقوم خادم Render بملء الملفات المرفوعة هنا تلقائياً -->
+            <div class="files-grid" id="files-list" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-top: 20px; margin-bottom: 30px;">
+                <p style="color: #64748b; grid-column: 1/-1; text-align: center;">جاري تحميل الملفات والمجلات من قاعدة البيانات السحابية...</p>
             </div>
 
             <div class="drive-link-container" style="text-align: center; margin-top: 40px; margin-bottom: 30px;">
                 <div style="background-color: #f8fafc; border: 2px dashed #0284c7; padding: 40px 20px; border-radius: 16px; max-width: 500px; margin: 0 auto; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
                     <div style="font-size: 45px; margin-bottom: 15px;">📁</div>
                     <h3 style="color: #0f172a; font-weight: 700; margin-bottom: 10px; font-size: 20px;">سحابة الملفات المشتركة</h3>
-                    <p style="color: #64748b; font-size: 14px; margin-bottom: 25px;">اضغط على الزر أدناه للانتقال الفوري إلى المجلد السحابي المحدث تلقائياً من الإدارة واستعراض كافة المجلات والصور.</p>
+                    <p style="color: #64748b; font-size: 14px; margin-bottom: 25px;">اضغط على الزر أدناه للانتقال الفوري إلى المجلد السحابي المشترك واستعراض كافة المجلات والصور الإضافية.</p>
                     <a href="https://drive.google.com/drive/folders/1HhS77RlgNc7ymuzaKCGSAu6IIm3qxuwm?usp=sharing" target="_blank" style="background-color: #0284c7; color: white; text-decoration: none; padding: 12px 35px; font-weight: bold; border-radius: 8px; display: inline-block; transition: background 0.3s; box-shadow: 0 4px 10px rgba(2, 132, 199, 0.3);">
-                        🚀 فتح micro مركز التحميل السحابي
+                        🚀 فتح مركز التحميل السحابي
                     </a>
                 </div>
             </div>
@@ -212,15 +208,14 @@
             <div class="partners-text-box">
                 <div class="p-text-item">
                     <h5>💼 شراكات مؤسسية:</h5>
-                    <p>ترتبط سكوبس بشراكات مع آلاف الجامعات، والمؤسسات الأكاديمية، والوزارات، والمجالس البحثية حول العالم. تعتمد هذه المؤسسات على مؤشرات سكوبس (مثل CiteScore و h-index) كمعيار رئيسي في تصنيف الجامعات دولياً (مثل تصنيف QS) وتقييم جودة وترقية الباحثين.</p>
+                    <p>ترتبط سكوبس بشراكات مع آلاف الجامعات، والمؤسسات الأكاديمية، والوزارات، والمجالس البحثية حول العالم.</p>
                 </div>
                 <div class="p-text-item">
                     <h5>📜 الاعتماد الذاتي:</h5>
-                    <p>تعتمد سكوبس نفسها كمرجع عالمي موثوق، وتُستخدم مقاييسها من قبل هيئات منح الدرجات العلمية ووكالات التمويل البحثي في عدد كبير من الدول.</p>
+                    <p>تعتمد سكوبس نفسها كمرجع عالمي موثوق، وتُستخدم مقاييسها من قبل هيئات منح الدرجات العلمية.</p>
                 </div>
                 <div class="p-text-item">
                     <h5>💡 ربط براءات الاختراع:</h5>
-                    <p>ترتبط سكوبس بقواعد بيانات براءات الاختراع الدولية لتعزيز البحث الشامل، مثل:</p>
                     <ul class="p-patents-list">
                         <li>مكتب براءات الاختراع والعلامات التجارية الأمريكي (USPTO).</li>
                         <li>المكتب الأوروبي للبراءات (EPO).</li>
@@ -264,51 +259,54 @@
         </div>
     </section>
 
-    <!-- البرمجة الخاصة بالربط مع خادم ونظام Render الديناميكي -->
     <script>
+        // 1. تشغيل وإصلاح قائمة الهامبرغر للموبايل
         function toggleMenu() {
             const menu = document.getElementById('sidebarMenu');
-            if(menu) menu.classList.toggle('open');
-        }
-
-        // جلب البيانات من السيرفر بشكل تلقائي
-        async function fetchDynamicData() {
-            try {
-                // 1. جلب الإعلانات النشطة
-                const adsRes = await fetch('/api/ads');
-                if (adsRes.ok) {
-                    const ads = await fetchDynamicDataJson(adsRes);
-                    const adsContainer = document.getElementById('adsContainer');
-                    if (ads && ads.length > 0 && adsContainer) {
-                        adsContainer.innerHTML = ads.map(ad => `<p>✨ ${ad.content}</p>`).join('');
-                    }
-                }
-
-                // 2. جلب الملفات المرفوعة للمكتبة
-                const filesRes = await fetch('/api/files');
-                if (filesRes.ok) {
-                    const files = await fetchDynamicDataJson(filesRes);
-                    const filesContainer = document.getElementById('filesContainer');
-                    if (files && files.length > 0 && filesContainer) {
-                        filesContainer.innerHTML = files.map(file => `
-                            <div style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); border: 1px solid #e2e8f0; text-align: center;">
-                                <div style="font-size: 40px; margin-bottom: 10px;">📄</div>
-                                <h4 style="margin: 0 0 10px 0; color: #1e293b; font-size: 16px;">${file.name}</h4>
-                                <a href="/uploads/${file.filename}" download style="display: inline-block; background: #0284c7; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-size: 14px; font-weight: bold; margin-top: 10px;">تحميل الملف</a>
-                            </div>
-                        `).join('');
-                    } else if (filesContainer) {
-                        filesContainer.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #64748b;">سيتم إدراج المجلات والملفات المرفوعة هنا فور رفعها من لوحة التحكم.</p>`;
-                    }
-                }
-            } catch (error) {
-                console.error("خطأ في جلب البيانات الديناميكية:", error);
+            if (menu) {
+                menu.classList.toggle('open');
             }
         }
 
-        async function fetchDynamicDataJson(res) { return await res.json(); }
-        window.addEventListener('DOMContentLoaded', fetchDynamicData);
+        // 2. جلب الإعلان اليومي والملفات بشكل ديناميكي من السيرفر الحقيقي
+        async function loadData() {
+            try {
+                const response = await fetch('/api/data');
+                const data = await response.json();
+
+                // تحديث نص الإعلان اليومي المرفوع
+                if(data.announcement) {
+                    document.getElementById('announcement-text').innerText = data.announcement;
+                }
+
+                // تحديث وعرض قائمة الملفات من لوحة التحكم
+                const filesListDiv = document.getElementById('files-list');
+                filesListDiv.innerHTML = ''; 
+
+                if (!data.files || data.files.length === 0) {
+                    filesListDiv.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #64748b;">لا توجد مجلات أو ملفات مرفوعة حالياً في المكتبة.</p>';
+                    return;
+                }
+
+                data.files.forEach(file => {
+                    const fileCard = document.createElement('div');
+                    fileCard.style = "background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); border: 1px solid #e2e8f0; text-align: center;";
+                    fileCard.innerHTML = `
+                        <div style="font-size: 40px; margin-bottom: 10px;">📄</div>
+                        <h4 style="margin: 0 0 10px 0; color: #1e293b; font-size: 16px;">${file.title}</h4>
+                        <a href="${file.fileUrl}" download style="display: inline-block; background: #0284c7; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-size: 14px; font-weight: bold; margin-top: 10px;">📥 تحميل الملف</a>
+                    `;
+                    filesListDiv.appendChild(fileCard);
+                });
+
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                document.getElementById('announcement-text').innerText = "بدء استقبال الأبحاث والأوراق العلمية للنشر في المجلات المدرجة Scopus لعام 2026م.";
+                document.getElementById('files-list').innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #64748b;">لا توجد ملفات مرفوعة حالياً.</p>';
+            }
+        }
+
+        window.onload = loadData;
     </script>
-    <script src="./script.js"></script>
 </body>
 </html>
