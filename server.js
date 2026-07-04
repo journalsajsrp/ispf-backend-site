@@ -9,7 +9,7 @@ app.use(express.static('public'));
 
 // 1. الاتصال بقاعدة البيانات
 // ملاحظة: Render سيستخدم الرابط الموجود في Environment Variables تلقائياً
-const mongoURI = process.env.MONGODB_URI || 'mongodb+srv://test:<db_password>@cluster0.sbcz5yb.mongodb.net/?appName=Cluster0';
+const mongoURI = process.env.MONGODB_URI || 'mongodb+srv://test:<123456>@cluster0.sbcz5yb.mongodb.net/?appName=Cluster0';
 
 mongoose.connect(mongoURI)
     .then(() => console.log('Connected to MongoDB successfully!'))
@@ -33,9 +33,10 @@ app.get('/api/data', async (req, res) => {
 app.post('/api/update-announcement', async (req, res) => {
     const { newText, password } = req.body;
     
-    if (password !== '123456') {
-        return res.status(401).send('غير مصرح لك بالدخول (Unauthorized)');
-    }
+// استبدل السطر القديم بهذا السطر الجديد:
+if (password !== 'ispf2026') {
+    return res.status(401).send('غير مصرح لك بالدخول (Unauthorized)');
+}
     
     try {
         await Announcement.findOneAndUpdate({}, { text: newText }, { upsert: true });
