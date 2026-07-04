@@ -76,7 +76,7 @@
                 </div>
                 <div class="about-box">
                     <h3>📜 النشأة والتأسيس</h3>
-                    <p>أنشئت المؤسسة عبر الإنترنت عام 2016م. ومن خلال سنوات عملها، أثبتت حضوراً بارزاً في تحكيم المؤلفات والنشر العلمي في العالم والوطن العربي من خلال مجموعة من المجلات العلميّة المحكّمة المعتمدة دولياً.</p>
+                    <p>أنشئت المؤسسة عبر الإنترنت عام 2016م. ومن خلال سنوات عملها, أثبتت حضوراً بارزاً في تحكيم المؤلفات والنشر العلمي في العالم والوطن العربي من خلال مجموعة من المجلات العلميّة المحكّمة المعتمدة دولياً.</p>
                 </div>
             </div>
 
@@ -260,7 +260,7 @@
     </section>
 
     <script>
-        // 1. إصلاح قائمة الهامبرغر للموبايل لتتوافق مع الـ CSS (.navbar.show)
+        // 1. القائمة المستجيبة للهامبرغر للموبايل
         function toggleMenu() {
             const menu = document.getElementById('sidebarMenu');
             if (menu) {
@@ -268,7 +268,7 @@
             }
         }
 
-        // 2. جلب الإعلان اليومي والملفات بشكل ديناميكي من السيرفر الحقيقي
+        // 2. جلب الإعلان اليومي والملفات بشكل ديناميكي من السيرفر المحدث
         async function loadData() {
             try {
                 const response = await fetch('/api/data');
@@ -279,7 +279,7 @@
                     document.getElementById('announcement-text').innerText = data.announcement;
                 }
 
-                // تحديث وعرض قائمة الملفات من لوحة التحكم
+                // تحديث قائمة الملفات المعروضة بالمكتبة الرقمية
                 const filesListDiv = document.getElementById('files-list');
                 filesListDiv.innerHTML = ''; 
 
@@ -290,11 +290,12 @@
 
                 data.files.forEach(file => {
                     const fileCard = document.createElement('div');
-                    fileCard.style = "background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); border: 1px solid #e2e8f0; text-align: center;";
+                    // تم ربط الكارت بكلاسات التصميم المعتمدة لديك ليظهر بشكل متناسق ومذهل
+                    fileCard.style = "background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; text-align: center; transition: transform 0.3s;";
                     fileCard.innerHTML = `
-                        <div style="font-size: 40px; margin-bottom: 10px;">📄</div>
-                        <h4 style="margin: 0 0 10px 0; color: #1e293b; font-size: 16px;">${file.title}</h4>
-                        <a href="${file.fileUrl}" download style="display: inline-block; background: #0284c7; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-size: 14px; font-weight: bold; margin-top: 10px;">📥 تحميل الملف</a>
+                        <div style="font-size: 45px; margin-bottom: 12px;">📄</div>
+                        <h4 style="margin: 0 0 12px 0; color: #1e293b; font-size: 16px; font-weight: 700; line-height: 1.5;">${file.title}</h4>
+                        <a href="${file.fileUrl}" target="_blank" style="display: inline-block; background: #0284c7; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-size: 14px; font-weight: bold; margin-top: 5px; transition: background 0.3s;">📥 تحميل العدد (PDF)</a>
                     `;
                     filesListDiv.appendChild(fileCard);
                 });
