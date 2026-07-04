@@ -9,8 +9,7 @@ app.use(express.static('public'));
 
 // 1. الاتصال بقاعدة البيانات
 // ملاحظة: Render سيستخدم الرابط الموجود في Environment Variables تلقائياً
-const mongoURI = process.env.MONGODB_URI || 'mongodb+srv://test:<123456>@cluster0.sbcz5yb.mongodb.net/?appName=Cluster0';
-
+const mongoURI = process.env.MONGODB_URI || 'mongodb+srv://test:123456@cluster0.sbcz5yb.mongodb.net/?appName=Cluster0';
 mongoose.connect(mongoURI)
     .then(() => console.log('Connected to MongoDB successfully!'))
     .catch((err) => console.error('Could not connect to MongoDB:', err));
