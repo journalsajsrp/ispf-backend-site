@@ -1,0 +1,20 @@
+<h2>لوحة التحكم - تحديث الإعلان</h2>
+<input type="text" id="newAnnouncement" placeholder="اكتب الإعلان الجديد هنا">
+<input type="password" id="pass" placeholder="كلمة المرور (ispf2026)">
+<button onclick="updateAnnouncement()">تحديث الإعلان</button>
+
+<script>
+async function updateAnnouncement() {
+    const newText = document.getElementById('newAnnouncement').value;
+    const password = document.getElementById('pass').value;
+    
+    const response = await fetch('/api/update-announcement', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ newText, password })
+    });
+    
+    const result = await response.text();
+    alert(result);
+}
+</script>
