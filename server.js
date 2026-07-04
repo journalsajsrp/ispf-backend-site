@@ -6,12 +6,14 @@ const app = express();
 app.use(express.json());
 app.use(express.static('public'));
 
-// 1. الاتصال بقاعدة البيانات
-const mongoURI = process.env.MONGODB_URI || 'mongodb+srv://test:123456@cluster0.sboz5yb.mongodb.net/ispf_database?retryWrites=true&w=majority';
+// 1. الاتصال بقاعدة البيانات (تم وضع الرابط المباشر والصحيح هنا مع إعدادات تفادي الـ Timeout)
+const mongoURI = 'mongodb+srv://test:123456@cluster0.sboz5yb.mongodb.net/ispf_database?retryWrites=true&w=majority';
 
-mongoose.connect(mongoURI)
-    .then(() => console.log('Connected to MongoDB successfully!'))
-    .catch((err) => console.error('Could not connect to MongoDB:', err));
+mongoose.connect(mongoURI, {
+    serverSelectionTimeoutMS: 5000 // محاولة الاتصال لمدة 5 ثوانٍ فقط لتجنب تعليق الطلبات في حال مشاكل الشبكة
+})
+    .then(() => console.log('✅ Connected to MongoDB successfully!'))
+    .catch((err) => console.error('❌ Could not connect to MongoDB:', err));
 
 // 2. النماذج (Schemas)
 const announcementSchema = new mongoose.Schema({ text: String });
@@ -39,8 +41,10 @@ app.get('/api/data', async (req, res) => {
 app.post('/api/update-announcement', async (req, res) => {
     const { newText, password, fileTitle, fileUrl } = req.body;
     
-    // التحقق الصارم من كلمة المرور الأمنية للمدير
-    if (password !== 'ispf2026') {
+    // التحقق من كلمة المرور عبر المتغير البيئي في Render أو القيمة الافتراضية الثابتة
+    const validPassword = process.env.ADMIN_PASSWORD || 'ispf2026';
+    
+    if (password !== validPassword) {
         return res.status(401).send('خطأ: غير مصرح لك بالتعديل، كلمة المرور غير صحيحة!');
     }
     
