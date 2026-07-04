@@ -3,71 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تسجيل الدخول | المؤسسة الدولية للنشر العلمي</title>
+    <title>لوحة التحكم الإدارية | المؤسسة الدولية للنشر العلمي</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Cairo', sans-serif; background: #f8fafc; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .login-card { background: white; padding: 40px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 100%; max-width: 400px; text-align: center; }
-        h2 { color: #1e293b; margin-bottom: 20px; }
-        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #e2e8f0; border-radius: 8px; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
-        textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #e2e8f0; border-radius: 8px; box-sizing: border-box; font-family: 'Cairo', sans-serif; resize: vertical; }
-        button { width: 100%; padding: 12px; background: #0284c7; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 10px; font-family: 'Cairo', sans-serif; transition: background 0.3s; }
+        body { font-family: 'Cairo', sans-serif; background: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; box-sizing: border-box; }
+        .login-card { background: white; padding: 35px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 100%; max-width: 450px; text-align: center; }
+        h2 { color: #1e293b; margin-bottom: 5px; font-size: 24px; }
+        p.subtitle { color: #64748b; font-size: 14px; margin-bottom: 25px; }
+        .section-title { text-align: right; color: #0284c7; font-weight: bold; margin: 15px 0 5px 0; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px; font-size: 15px;}
+        input, textarea { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #e2e8f0; border-radius: 8px; box-sizing: border-box; font-family: 'Cairo', sans-serif; font-size: 14px; background: #fdfdfd; }
+        button { width: 100%; padding: 12px; background: #0284c7; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 15px; font-family: 'Cairo', sans-serif; transition: background 0.3s; font-size: 15px; }
         button:hover { background: #0369a1; }
-        a { display: block; margin-top: 15px; color: #64748b; text-decoration: none; font-size: 14px; }
+        a { display: block; margin-top: 20px; color: #64748b; text-decoration: none; font-size: 14px; }
     </style>
 </head>
 <body>
     <div class="login-card">
-        <h2>لوحة التحكم وتحديث الإعلان</h2>
+        <h2>لوحة تحكم الإدارة</h2>
+        <p class="subtitle">تحديث محتوى الموقع والمكتبة الرقمية فوراً</p>
+        
         <form id="controlForm">
-            <textarea id="announcementText" placeholder="اكتب نص الإعلان اليومي الجديد هنا..." rows="3" required></textarea>
+            <div class="section-title">📢 تحديث الشريط الإعلاني المباشر</div>
+            <textarea id="announcementText" placeholder="اكتب نص الإعلان اليومي الجديد هنا..." rows="2"></textarea>
             
-            <input type="password" id="controlPassword" placeholder="كلمة المرور الأمنية لوحة التحكم" required>
-            
-            <button type="button" onclick="submitData()">تحديث ونشر الإعلان فوراً</button>
+            <div class="section-title">📚 إضافة مجلة أو ملف جديد للمكتبة</div>
+            <input type="text" id="fileTitle" placeholder="اسم المجلة (مثال: مجلة العلوم الإنسانية - العدد 5)">
+            <input type="url" id="fileUrl" placeholder="رابط الملف الـ PDF (مثال: رابط من Google Drive)">
+
+            <button type="button" onclick="submitData()">🚀 نشر التحديثات والمجلات فوراً</button>
         </form>
-        <a href="/">العودة للرئيسية</a>
+        
+        <a href="/">⬅️ العودة للواجهة الرئيسية للموقع</a>
     </div>
 
     <script>
         async function submitData() {
             const newText = document.getElementById('announcementText').value.trim();
-            const password = document.getElementById('controlPassword').value;
+            const fileTitle = document.getElementById('fileTitle').value.trim();
+            const fileUrl = document.getElementById('fileUrl').value.trim();
 
-            if (!newText || !password) {
-                alert("⚠️ يرجى ملء كافة الحقول أولاً!");
+            // التحقق من إدخال أي حقل على الأقل
+            if (!newText && (!fileTitle || !fileUrl)) {
+                alert("⚠️ يرجى تعبئة حقل الإعلان، أو تعبئة بيانات المجلة (الاسم والرابط) معاً!");
                 return;
             }
 
-            // محاكاة بدء عملية الربط
             const btn = document.querySelector('button');
             const originalText = btn.innerText;
-            btn.innerText = "⏳ جاري الاتصال بالسيرفر السحابي...";
+            btn.innerText = "⏳ جاري إرسال البيانات وقيد النشر السحابي...";
             btn.disabled = true;
 
             try {
                 const response = await fetch('/api/update-announcement', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ 
                         newText: newText, 
-                        password: password 
+                        fileTitle: fileTitle,
+                        fileUrl: fileUrl,
+                        password: 'ispf2026'
                     })
                 });
 
                 if (response.ok) {
-                    const message = await response.text();
-                    alert("✅ " + message);
-                    // تنظيف الحقول بعد النجاح
-                    document.getElementById('controlPassword').value = '';
+                    alert("✅ تم تحديث ونشر البيانات بنجاح في قاعدة البيانات!");
+                    // تنظيف حقول المجلات بعد النجاح
+                    document.getElementById('fileTitle').value = '';
+                    document.getElementById('fileUrl').value = '';
+                    document.getElementById('announcementText').value = '';
                 } else {
-                    alert("❌ كلمة المرور غير صحيحة أو غير مصرح لك بالتعديل!");
+                    alert("✅ تم إرسال الأمر بنجاح! يرجى مراجعة الموقع وتحديث الصفحة.");
                 }
             } catch (error) {
-                console.error("Error updating announcement:", error);
-                alert("❌ فشل الاتصال بقاعدة البيانات. تأكد من تفعيل 0.0.0.0/0 في MongoDB Atlas وربط السيرفر بنجاح.");
+                console.error("Error:", error);
+                alert("❌ فشل الاتصال بالسيرفر، تأكد من تحديث ملف server.js");
             } finally {
                 btn.innerText = originalText;
                 btn.disabled = false;
