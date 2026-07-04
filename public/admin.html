@@ -1,20 +1,40 @@
-<h2>لوحة التحكم - تحديث الإعلان</h2>
-<input type="text" id="newAnnouncement" placeholder="اكتب الإعلان الجديد هنا">
-<input type="password" id="pass" placeholder="كلمة المرور (ispf2026)">
-<button onclick="updateAnnouncement()">تحديث الإعلان</button>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>لوحة التحكم | ISPF</title>
+    <style>
+        body { font-family: 'Cairo', sans-serif; background: #f8fafc; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .admin-card { background: white; padding: 40px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 100%; max-width: 400px; text-align: center; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #e2e8f0; border-radius: 8px; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; background: #0284c7; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="admin-card">
+        <h2>⚙️ لوحة التحكم</h2>
+        <input type="text" id="newAnnouncement" placeholder="اكتب الإعلان الجديد هنا">
+        <input type="password" id="pass" placeholder="كلمة المرور (ispf2026)">
+        <button onclick="updateAnnouncement()">تحديث الإعلان</button>
+        <p id="status"></p>
+    </div>
 
-<script>
-async function updateAnnouncement() {
-    const newText = document.getElementById('newAnnouncement').value;
-    const password = document.getElementById('pass').value;
-    
-    const response = await fetch('/api/update-announcement', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ newText, password })
-    });
-    
-    const result = await response.text();
-    alert(result);
-}
-</script>
+    <script>
+    async function updateAnnouncement() {
+        const newText = document.getElementById('newAnnouncement').value;
+        const password = document.getElementById('pass').value;
+        const status = document.getElementById('status');
+        
+        const response = await fetch('/api/update-announcement', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ newText, password })
+        });
+        
+        const result = await response.text();
+        status.innerText = result;
+        alert(result);
+    }
+    </script>
+</body>
+</html>
