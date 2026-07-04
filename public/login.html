@@ -23,12 +23,15 @@
         <p class="subtitle">تحديث محتوى الموقع والمكتبة الرقمية فوراً</p>
         
         <form id="controlForm">
+            <div class="section-title">🔑 التحقق الأمني للمدير</div>
+            <input type="password" id="controlPassword" placeholder="أدخل كلمة مرور المدير الحقيقية هنا" required>
+
             <div class="section-title">📢 تحديث الشريط الإعلاني المباشر</div>
             <textarea id="announcementText" placeholder="اكتب نص الإعلان اليومي الجديد هنا..." rows="2"></textarea>
             
             <div class="section-title">📚 إضافة مجلة أو ملف جديد للمكتبة</div>
-            <input type="text" id="fileTitle" placeholder="اسم المجلة (مثال: مجلة العلوم الإنسانية - العدد 5)">
-            <input type="url" id="fileUrl" placeholder="رابط الملف الـ PDF (مثال: رابط من Google Drive)">
+            <input type="text" id="fileTitle" placeholder="اسم المجلة (مثال: مجلة العلوم الإنسانية)">
+            <input type="url" id="fileUrl" placeholder="رابط الملف الـ PDF من Google Drive">
 
             <button type="button" onclick="submitData()">🚀 نشر التحديثات والمجلات فوراً</button>
         </form>
@@ -38,19 +41,24 @@
 
     <script>
         async function submitData() {
+            const password = document.getElementById('controlPassword').value;
             const newText = document.getElementById('announcementText').value.trim();
             const fileTitle = document.getElementById('fileTitle').value.trim();
             const fileUrl = document.getElementById('fileUrl').value.trim();
 
-            // التحقق من إدخال أي حقل على الأقل
+            if (!password) {
+                alert("⚠️ يرجى إدخال كلمة مرور المدير أولاً لحماية الموقع!");
+                return;
+            }
+
             if (!newText && (!fileTitle || !fileUrl)) {
-                alert("⚠️ يرجى تعبئة حقل الإعلان، أو تعبئة بيانات المجلة (الاسم والرابط) معاً!");
+                alert("⚠️ يرجى تعبئة حقل الإعلان، أو تعبئة بيانات المجلة!");
                 return;
             }
 
             const btn = document.querySelector('button');
             const originalText = btn.innerText;
-            btn.innerText = "⏳ جاري إرسال البيانات وقيد النشر السحابي...";
+            btn.innerText = "⏳ جاري التحقق والنشر السحابي...";
             btn.disabled = true;
 
             try {
@@ -61,22 +69,22 @@
                         newText: newText, 
                         fileTitle: fileTitle,
                         fileUrl: fileUrl,
-                        password: 'ispf2026'
+                        password: password // ترسل القيمة المكتوبة في الحقل
                     })
                 });
 
                 if (response.ok) {
-                    alert("✅ تم تحديث ونشر البيانات بنجاح في قاعدة البيانات!");
-                    // تنظيف حقول المجلات بعد النجاح
+                    alert("✅ تم التحديث والنشر بنجاح في قاعدة البيانات!");
                     document.getElementById('fileTitle').value = '';
                     document.getElementById('fileUrl').value = '';
                     document.getElementById('announcementText').value = '';
                 } else {
-                    alert("✅ تم إرسال الأمر بنجاح! يرجى مراجعة الموقع وتحديث الصفحة.");
+                    const errText = await response.text();
+                    alert("❌ " + errText);
                 }
             } catch (error) {
                 console.error("Error:", error);
-                alert("❌ فشل الاتصال بالسيرفر، تأكد من تحديث ملف server.js");
+                alert("❌ فشل الاتصال بالسيرفر.");
             } finally {
                 btn.innerText = originalText;
                 btn.disabled = false;
