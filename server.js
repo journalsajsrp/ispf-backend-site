@@ -7,9 +7,8 @@ const app = express();
 app.use(express.json());
 app.use(express.static('public'));
 
-// 1. الاتصال بقاعدة البيانات (تم إصلاح الرابط ليتطابق مع الـ Cluster الخاص بك)
-// تأكد من كتابة كلمة المرور الصحيحة لمستخدم test بدلاً من كلمة "PASSWORD_HERE"
-const mongoURI = process.env.MONGODB_URI || 'mongodb+srv://test:PASSWORD_HERE@cluster0.sboz5yb.mongodb.net/ispf_database?retryWrites=true&w=majority';
+// 1. الاتصال بقاعدة البيانات
+const mongoURI = process.env.MONGODB_URI || 'mongodb+srv://test:123456@cluster0.sboz5yb.mongodb.net/ispf_database?retryWrites=true&w=majority';
 
 mongoose.connect(mongoURI)
     .then(() => console.log('Connected to MongoDB successfully!'))
@@ -29,11 +28,14 @@ app.get('/api/data', async (req, res) => {
     }
 });
 
-// 4. مسار تحديث الإعلان
+// 4. مسار تحديث الإعلان (تم التعديل ليقرأ من لوحة تحكم Render أو الكلمة الافتراضية)
 app.post('/api/update-announcement', async (req, res) => {
     const { newText, password } = req.body;
     
-    if (password !== 'ispf2026') {
+    // يقرأ القيمة المكتوبة في Render (ADMIN_PASSWORD) وإذا لم يجدها يستخدم 'ispf2026' كاحتياط
+    const validPassword = process.env.ADMIN_PASSWORD || 'ispf2026';
+    
+    if (password !== validPassword) {
         return res.status(401).send('غير مصرح لك بالدخول (Unauthorized)');
     }
     
