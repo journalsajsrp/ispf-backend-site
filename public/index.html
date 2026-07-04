@@ -21,13 +21,17 @@
 
     <header class="main-header">
         <div class="container header-flex">
-            <button class="hamburger-menu" onclick="toggleMenu()" aria-label="قائمة التنقل">☰ قائمة الموقع</button>
+            <button class="hamburger-menu" onclick="toggleMenu()" aria-label="قائمة التنقل">
+                ☰ قائمة الموقع
+            </button>
             <div class="logo-container">
-                <a href="#"><img src="./pageHeaderTitleImage_ar.png" alt="المؤسسة الدولية للنشر العلمي" class="site-logo"></a>
+                <a href="#">
+                    <img src="./pageHeaderTitleImage_ar.png" alt="المؤسسة الدولية للنشر العلمي" class="site-logo">
+                </a>
             </div>
             <nav class="navbar" id="sidebarMenu">
                 <ul class="nav-links">
-                    <li><a href="#" onclick="toggleMenu()">الرئيسية</a></li>
+                    <li><a href="#" class="active" onclick="toggleMenu()">الرئيسية</a></li>
                     <li><a href="#about" onclick="toggleMenu()">من نحن</a></li>
                     <li><a href="#scopus" onclick="toggleMenu()">النشر في سكوباس</a></li>
                     <li><a href="#library" onclick="toggleMenu()">المكتبة الرقمية</a></li>
@@ -56,7 +60,9 @@
         <div class="container">
             <div class="ads-box">
                 <div class="ads-badge">📢 إعلاناتنا اليومية</div>
-                <div class="ads-ticker"><p id="announcement-text">جاري تحميل الإعلان...</p></div>
+                <div class="ads-ticker" id="adsContainer">
+                    <p id="announcement-text">جاري تحميل الإعلان اليومي من السيرفر السحابي...</p>
+                </div>
             </div>
         </div>
     </section>
@@ -64,45 +70,242 @@
     <section class="about-section" id="about">
         <div class="container">
             <div class="about-grid">
-                <div class="about-box"><h3>🎯 هدفنا ورؤيتنا</h3><p>نهدف للمساهمة بالنشر العلمي في جميع الاختصاصات لتعزيز البحث العلمي والكتابة الأكاديمية.</p></div>
-                <div class="about-box"><h3>📜 النشأة والتأسيس</h3><p>أنشئت المؤسسة عبر الإنترنت عام 2016م.</p></div>
+                <div class="about-box">
+                    <h3>🎯 هدفنا ورؤيتنا</h3>
+                    <p>نهدف للمساهمة بالنشر العلمي في جميع الاختصاصات لتعزيز البحث العلمي والكتابة الأكاديمية. وسعياً لتحقيق هذا الهدف تشترط المؤسسة حداثة الموضوعات البحثية، وخلوها من السرقات العلمية، والأخطاء اللغوية.</p>
+                </div>
+                <div class="about-box">
+                    <h3>📜 النشأة والتأسيس</h3>
+                    <p>أنشئت المؤسسة عبر الإنترنت عام 2016م. ومن خلال سنوات عملها، أثبتت حضوراً بارزاً في تحكيم المؤلفات والنشر العلمي في العالم والوطن العربي من خلال مجموعة من المجلات العلميّة المحكّمة المعتمدة دولياً.</p>
+                </div>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h4>🧭 توجهات المؤسسة الرئيسة</h4>
+                    <ul>
+                        <li>المساهمة الفعالة في نشر البحوث والدراسات العلمية للترقيات وطلبة الدراسات العليا.</li>
+                        <li>العمل على إعداد القادة وتأهيلهم في المجالات التي يوجهون إليها في البحث العلمي.</li>
+                        <li>خلق فرص عمل إنتاجية عن طريق الورش التابعة للمركز.</li>
+                        <li>الاستفادة على وجه الخصوص من المؤتمرات العلمية للباحثين.</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <h4>🛠️ مهام المؤسسة</h4>
+                    <p>تقوم المؤسسة بنشر الأبحاث في جميع الاختصاصات وفهرستها، وهي مؤسسة أكاديمية تُقدِّم خدمات البحث العلمي عبر مجموعة متميّزة من المجلات العلمية المُحكَّمة، ويُشرف عليها كادر من العلماء والأكاديميين.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="scopus-section" id="scopus">
+        <div class="container">
+            <h2 class="section-title">✨ النشر في سكوباس (Scopus)</h2>
+            <p class="scopus-intro"><strong>ما هي سكوباس؟</strong> قاعدة بيانات عالمية ضخمة تضم آلاف المجلات العلمية المُحكّمة وتُعد المعيار الأساسي لتقييم جودة الأبحاث، واعتماد المجلات للترقيات الأكاديمية.</p>
+
+            <h3 class="sub-title">📊 مستويات المجلات في سكوبس (معاملات التأثير)</h3>
+            <div class="quartiles-grid">
+                <div class="q-box q1">
+                    <img src="./Logo 1.jpeg" alt="Logo 1" class="q-logo">
+                    <h4>Q1 (الربع الأول)</h4>
+                    <p>المجلات الأعلى تأثيراً والأكثر استشهاداً.</p>
+                </div>
+                <div class="q-box q2">
+                    <img src="./Logo 2.jpeg" alt="Logo 2" class="q-logo">
+                    <h4>Q2 (الربع الثاني)</h4>
+                    <p>مجلات قوية ذات جودة وموثوقية عالية.</p>
+                </div>
+                <div class="q-box q3">
+                    <img src="./Logo 3.jpeg" alt="Logo 3" class="q-logo">
+                    <h4>Q3 (الربع الثالث)</h4>
+                    <p>مجلات متوسطة التأثير، تعتبر نقطة انطلاق مناسبة.</p>
+                </div>
+                <div class="q-box q4">
+                    <img src="./Logo 4.jpeg" alt="Logo 4" class="q-logo">
+                    <h4>Q4 (الربع الرابع)</h4>
+                    <p>المجلات الأحدث أو الأقل تأثيراً، وتتميز بقبول أسهل.</p>
+                </div>
+            </div>
+
+            <div class="conditions-box">
+                <h3>📋 شروط النشر لضمان قبول بحثك</h3>
+                <div class="cond-grid">
+                    <div class="cond-item"><strong>1. الأصالة:</strong> أن يقدم البحث إضافة جديدة ولم يسبق نشره.</div>
+                    <div class="cond-item"><strong>2. الارتباط:</strong> أن يقع موضوع البحث ضمن دائرة اهتمام المجلة.</div>
+                    <div class="cond-item"><strong>3. الدقة المنهجية:</strong> وضوح الأهداف، وسلامة الإطار النظري والفرضيات.</div>
+                    <div class="cond-item"><strong>4. اللغة:</strong> تُنشر الأبحاث بالإنجليزية لضمان مطابقة المعايير العلمية.</div>
+                </div>
             </div>
         </div>
     </section>
 
     <section class="download-center-section" id="library">
         <div class="container">
-            <h2 class="section-title">📚 المكتبة الرقمية</h2>
-            <div class="files-grid" id="files-list">
-                <p style="text-align: center;">جاري تحميل الملفات...</p>
+            <h2 class="section-title">📚 المكتبة الرقمية ومركز تحميل الملفات</h2>
+            <p class="library-desc">
+                تصفح وحمل أحدث المجلات العلمية والأدلة الأكاديمية المرفوعة مباشرة وحصرياً من إدارة المؤسسة:
+            </p>
+             
+            <div class="files-grid" id="files-list" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-top: 20px; margin-bottom: 30px;">
+                <p style="color: #64748b; grid-column: 1/-1; text-align: center;">جاري تحميل الملفات والمجلات من قاعدة البيانات السحابية...</p>
+            </div>
+
+            <div class="drive-link-container" style="text-align: center; margin-top: 40px; margin-bottom: 30px;">
+                <div style="background-color: #f8fafc; border: 2px dashed #0284c7; padding: 40px 20px; border-radius: 16px; max-width: 500px; margin: 0 auto; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                    <div style="font-size: 45px; margin-bottom: 15px;">📁</div>
+                    <h3 style="color: #0f172a; font-weight: 700; margin-bottom: 10px; font-size: 20px;">سحابة الملفات المشتركة</h3>
+                    <p style="color: #64748b; font-size: 14px; margin-bottom: 25px;">اضغط على الزر أدناه للانتقال الفوري إلى المجلد السحابي المشترك واستعراض كافة المجلات والصور الإضافية.</p>
+                    <a href="https://drive.google.com/drive/folders/1HhS77RlgNc7ymuzaKCGSAu6IIm3qxuwm?usp=sharing" target="_blank" style="background-color: #0284c7; color: white; text-decoration: none; padding: 12px 35px; font-weight: bold; border-radius: 8px; display: inline-block; transition: background 0.3s; box-shadow: 0 4px 10px rgba(2, 132, 199, 0.3);">
+                        🚀 فتح مركز التحميل السحابي
+                    </a>
+                </div>
             </div>
         </div>
     </section>
 
-    <footer class="main-footer">
-        <div class="container"><p>&copy; 2026 جميع الحقوق محفوظة للمؤسسة الدولية للنشر العلمي.</p></div>
-    </footer>
+    <section class="team-section" id="team">
+        <div class="container">
+            <h2 class="section-title">👥 إدارة المؤسسة وفريق العمل</h2>
+            <p class="team-intro">تشتمل المؤسسة على فريق عمل أكاديمي متخصص في النشر العلمي لتحقيق أهداف المؤسسة ورغبة الباحثين.</p>
+            <div class="team-grid">
+                <div class="member-card leader">
+                    <h4>د. بسام حسن مهرة</h4>
+                    <p class="role">رئيس المؤسسة</p>
+                    <p class="country">🇵🇸 فلسطين</p>
+                </div>
+                <div class="member-card">
+                    <h4>د. عبد العزيز فاروق الروبي</h4>
+                    <p class="role">نائب الرئيس</p>
+                    <p class="country">🇹🇷 تركيا</p>
+                </div>
+                <div class="member-card">
+                    <h4>أ. غيداء بسام مهرة</h4>
+                    <p class="role">سكرتاريا</p>
+                    <p class="country">🇵🇸 فلسطين</p>
+                </div>
+                <div class="member-card">
+                    <h4>د. هيلة بنت تركي القحطاني</h4>
+                    <p class="role">عضو الهيئة الإدارية</p>
+                    <p class="country">🇸🇦 السعودية</p>
+                </div>
+                <div class="member-card">
+                    <h4>د. سلوى بنت محمد العامري</h4>
+                    <p class="role">عضو الهيئة الإدارية</p>
+                    <p class="country">🇶🇦 قطر</p>
+                </div>
+                <div class="member-card">
+                    <h4>د. ميسون بنت عبدالله العنزي</h4>
+                    <p class="role">عضو الهيئة الإدارية</p>
+                    <p class="country">🇸🇦 السعودية</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="partners-section" id="partners">
+        <div class="container">
+            <h2 class="section-title">🤝 الاعتمادات والروابط الدولية للمؤسسة</h2>
+            <div class="partners-text-box">
+                <div class="p-text-item">
+                    <h5>💼 شراكات مؤسسية:</h5>
+                    <p>ترتبط سكوبس بشراكات مع آلاف الجامعات، والمؤسسات الأكاديمية، والوزارات، والمجالس البحثية حول العالم.</p>
+                </div>
+                <div class="p-text-item">
+                    <h5>📜 الاعتماد الذاتي:</h5>
+                    <p>تعتمد سكوبس نفسها كمرجع عالمي موثوق، وتُستخدم مقاييسها من قبل هيئات منح الدرجات العلمية.</p>
+                </div>
+                <div class="p-text-item">
+                    <h5>💡 ربط براءات الاختراع:</h5>
+                    <ul class="p-patents-list">
+                        <li>مكتب براءات الاختراع والعلامات التجارية الأمريكي (USPTO).</li>
+                        <li>المكتب الأوروبي للبراءات (EPO).</li>
+                        <li>مكتب براءات الاختراع الياباني (JPO).</li>
+                        <li>المنظمة العالمية للملكية الفكرية (WIPO).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="partners-grid">
+                <div class="partner-item"><img src="./Logo 5.jpeg" alt="Logo 5" class="large-partner-logo"></div>
+                <div class="partner-item"><img src="./Logo 6.jpeg" alt="Logo 6" class="large-partner-logo"></div>
+                <div class="partner-item"><img src="./Logo 7.jpeg" alt="Logo 7" class="large-partner-logo"></div>
+                <div class="partner-item"><img src="./Logo 8.jpeg" alt="Logo 8" class="large-partner-logo"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <h2 class="section-title">📞 تواصل معنا الآن</h2>
+            <p class="contact-subtitle">يسعدنا استقبال مسودات أبحاثكم واستفساراتكم على مدار الساعة</p>
+            <div class="contact-boxes">
+                <a href="https://wa.me/970599239760" target="_blank" class="c-box whatsapp">
+                    <span class="icon">💬</span>
+                    <h4>رقم الهاتف والواتساب الرسمي</h4>
+                    <p dir="ltr" class="contact-num">+970 599 239 760</p>
+                </a>
+                <a href="mailto:scopusjournals.sij@gmail.com" class="c-box email">
+                    <span class="icon">✉️</span>
+                    <h4>البريد الإلكتروني للمؤسسة</h4>
+                    <p class="contact-mail">scopusjournals.sij@gmail.com</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="main-footer">
+        <div class="container">
+            <p>&copy; 2026 جميع الحقوق محفوظة للمؤسسة الدولية للنشر العلمي (ISPF).</p>
+        </div>
+    </section>
 
     <script>
-        function toggleMenu() { document.getElementById('sidebarMenu').classList.toggle('open'); }
+        // 1. إصلاح قائمة الهامبرغر للموبايل لتتوافق مع الـ CSS (.navbar.show)
+        function toggleMenu() {
+            const menu = document.getElementById('sidebarMenu');
+            if (menu) {
+                menu.classList.toggle('show');
+            }
+        }
 
+        // 2. جلب الإعلان اليومي والملفات بشكل ديناميكي من السيرفر الحقيقي
         async function loadData() {
             try {
                 const response = await fetch('/api/data');
                 const data = await response.json();
-                if(data.announcement) document.getElementById('announcement-text').innerText = data.announcement;
-                
-                const filesListDiv = document.getElementById('files-list');
-                filesListDiv.innerHTML = '';
-                if(data.files) {
-                    data.files.forEach(file => {
-                        filesListDiv.innerHTML += `<div><h4>${file.title}</h4><a href="${file.fileUrl}">📥 تحميل</a></div>`;
-                    });
+
+                // تحديث نص الإعلان اليومي المرفوع
+                if(data.announcement) {
+                    document.getElementById('announcement-text').innerText = data.announcement;
                 }
+
+                // تحديث وعرض قائمة الملفات من لوحة التحكم
+                const filesListDiv = document.getElementById('files-list');
+                filesListDiv.innerHTML = ''; 
+
+                if (!data.files || data.files.length === 0) {
+                    filesListDiv.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #64748b;">لا توجد مجلات أو ملفات مرفوعة حالياً في المكتبة.</p>';
+                    return;
+                }
+
+                data.files.forEach(file => {
+                    const fileCard = document.createElement('div');
+                    fileCard.style = "background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); border: 1px solid #e2e8f0; text-align: center;";
+                    fileCard.innerHTML = `
+                        <div style="font-size: 40px; margin-bottom: 10px;">📄</div>
+                        <h4 style="margin: 0 0 10px 0; color: #1e293b; font-size: 16px;">${file.title}</h4>
+                        <a href="${file.fileUrl}" download style="display: inline-block; background: #0284c7; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-size: 14px; font-weight: bold; margin-top: 10px;">📥 تحميل الملف</a>
+                    `;
+                    filesListDiv.appendChild(fileCard);
+                });
+
             } catch (error) {
-                document.getElementById('announcement-text').innerText = "أهلاً بكم في المؤسسة الدولية للنشر العلمي.";
+                console.error('Error fetching data:', error);
+                document.getElementById('announcement-text').innerText = "بدء استقبال الأبحاث والأوراق العلمية للنشر في المجلات المدرجة Scopus لعام 2026م.";
+                document.getElementById('files-list').innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #64748b;">لا توجد ملفات مرفوعة حالياً.</p>';
             }
         }
+
         window.onload = loadData;
     </script>
 </body>
