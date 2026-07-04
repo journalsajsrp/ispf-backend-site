@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ar" direction="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المؤسسة الدولية للنشر العلمي</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* تنسيقات أساسية وسريعة لضمان ظهور العناصر بشكل مرتب */
+        body { font-family: sans-serif; direction: rtl; text-align: right; margin: 0; padding: 0; background-color: #f8fafc; }
+        .announcement-bar { background: #0284c7; color: white; padding: 10px; text-align: center; font-weight: bold; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .header { background: white; padding: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center; }
+        .nav-links a { margin-left: 20px; text-decoration: none; color: #334155; font-weight: bold; }
+        .file-card { background: white; padding: 15px; margin-bottom: 10px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center; }
+        .download-btn { background: #22c55e; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; }
+        .marquee-text { display: inline-block; white-space: nowrap; animation: marquee 15s linear infinite; }
+        @keyframes marquee { 0% { transform: translate(100%, 0); } 100% { transform: translate(-100%, 0); } }
+    </style>
+</head>
+<body>
+
+    <div class="announcement-bar">
+        <div style="overflow: hidden; width: 100%;">
+            <span id="announcement-text" class="marquee-text">جاري تحميل إعلان اليوم...</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <div class="logo-area">
+                <h2>🏛️ المؤسسة الدولية</h2>
+            </div>
+            <div class="nav-links">
+                <a href="/">الرئيسية</a>
+                <a href="#library">المكتبة الرقمية</a>
+                <a href="/login" style="color: #0284c7;">🔐 لوحة التحكم</a>
+            </div>
+        </div>
+
+        <main style="margin-top: 40px;">
+            <h1>أهلاً بك في المنصة الرسمية</h1>
+            <p>هنا تجد كافة الأبحاث، المجلات والملفات الأكاديمية المحدثة لحظياً من قبل إدارة المؤسسة.</p>
+            
+            <hr style="border: 1px solid #e2e8f0; margin: 40px 0;">
+
+            <section id="library">
+                <h2 style="color: #0f172a; margin-bottom: 20px;">📚 المكتبة الرقمية وتحميل الملفات</h2>
+                <div id="files-list">
+                    <p style="color: #64748b;">جاري تحميل الملفات من السيرفر السحابي...</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // دالة لجلب البيانات من السيرفر فور فتح الصفحة
+        async function loadData() {
+            try {
+                const response = await fetch('/api/data');
+                const data = await response.json();
+
+                // 1. تحديث نص الإعلان اليومي
+                document.getElementById('announcement-text').innerText = data.announcement;
+
+                // 2. تحديث قائمة الملفات المرفوعة
+                const filesListDiv = document.getElementById('files-list');
+                filesListDiv.innerHTML = ''; // تفريغ نص التحميل
+
+                if (data.files.length === 0) {
+                    filesListDiv.innerHTML = '<p style="color: #64748b;">لا توجد ملفات مرفوعة حالياً في المكتبة.</p>';
+                    return;
+                }
+
+                // عرض كل ملف داخل كارد خاص به مع زر التحميل المباشر
+                data.files.forEach(file => {
+                    const fileCard = document.createElement('div');
+                    fileCard.className = 'file-card';
+                    fileCard.innerHTML = `
+                        <div>
+                            <strong style="color: #1e293b; font-size: 1.1em;">📄 ${file.title}</strong>
+                            <br>
+                            <small style="color: #94a3b8;">تاريخ الرفع: ${new Date(file.uploadedAt).toLocaleDateString('ar-EG')}</small>
+                        </div>
+                        <div>
+                            <a href="${file.fileUrl}" download class="download-btn">📥 تحميل مباشر</a>
+                        </div>
+                    `;
+                    filesListDiv.appendChild(fileCard);
+                });
+
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                document.getElementById('announcement-text').innerText = "فشل اتصال السيرفر بالإعلان اليومي";
+                document.getElementById('files-list').innerHTML = '<p style="color: #ef4444;">عذراً، حدث خطأ أثناء جلب الملفات من قاعدة البيانات.</p>';
+            }
+        }
+
+        // تشغيل الدالة تلقائياً عند تحميل الصفحة
+        window.onload = loadData;
+    </script>
+</body>
+</html>
