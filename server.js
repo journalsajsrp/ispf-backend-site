@@ -7,9 +7,10 @@ const app = express();
 app.use(express.json());
 app.use(express.static('public'));
 
-// 1. الاتصال بقاعدة البيانات
-// ملاحظة: Render سيستخدم الرابط الموجود في Environment Variables تلقائياً
-const mongoURI = process.env.MONGODB_URI || 'mongodb+srv://test:123456@cluster0.sbcz5yb.mongodb.net/?appName=Cluster0';
+// 1. الاتصال بقاعدة البيانات (تم إصلاح الرابط ليتطابق مع الـ Cluster الخاص بك)
+// تأكد من كتابة كلمة المرور الصحيحة لمستخدم test بدلاً من كلمة "PASSWORD_HERE"
+const mongoURI = process.env.MONGODB_URI || 'mongodb+srv://test:PASSWORD_HERE@cluster0.sboz5yb.mongodb.net/ispf_database?retryWrites=true&w=majority';
+
 mongoose.connect(mongoURI)
     .then(() => console.log('Connected to MongoDB successfully!'))
     .catch((err) => console.error('Could not connect to MongoDB:', err));
@@ -28,14 +29,13 @@ app.get('/api/data', async (req, res) => {
     }
 });
 
-// 4. مسار تحديث الإعلان (بكلمة مرور 123456)
+// 4. مسار تحديث الإعلان
 app.post('/api/update-announcement', async (req, res) => {
     const { newText, password } = req.body;
     
-// استبدل السطر القديم بهذا السطر الجديد:
-if (password !== 'ispf2026') {
-    return res.status(401).send('غير مصرح لك بالدخول (Unauthorized)');
-}
+    if (password !== 'ispf2026') {
+        return res.status(401).send('غير مصرح لك بالدخول (Unauthorized)');
+    }
     
     try {
         await Announcement.findOneAndUpdate({}, { text: newText }, { upsert: true });
