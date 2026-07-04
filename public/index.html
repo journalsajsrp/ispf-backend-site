@@ -56,11 +56,13 @@
         </div>
     </section>
 
+    <!-- قسم الإعلانات: تم ربطه ديناميكياً ليقرأ من السيرفر -->
     <section class="ads-section">
         <div class="container">
             <div class="ads-box">
                 <div class="ads-badge">📢 إعلاناتنا اليومية</div>
-                <div class="ads-ticker">
+                <div class="ads-ticker" id="adsContainer">
+                    <!-- الإعلان الافتراضي يظهر هنا حتى يكتمل تحميل البيانات -->
                     <p>✨ بدء استقبال الأبحاث والأوراق العلمية للنشر في المجلات المدرجة ضمن قواعد بيانات Scopus و Clarivate لشهري يوليو وأغسطس 2026م.</p>
                 </div>
             </div>
@@ -139,6 +141,7 @@
         </div>
     </section>
 
+    <!-- قسم المكتبة الرقمية: مدمج مع نظام جلب الملفات التلقائي -->
     <section class="download-center-section" id="library">
         <div class="container">
             <h2 class="section-title">📚 المكتبة الرقمية ومركز تحميل الملفات</h2>
@@ -146,13 +149,18 @@
                 تصفح وحمل أحدث المجلات العلمية، شروط النشر المحدثة، الأدلة الأكاديمية، والنماذج المرفوعة مباشرة من الإدارة:
             </p>
              
-            <div class="drive-link-container" style="text-align: center; margin-top: 30px; margin-bottom: 30px;">
+            <!-- شبكة عرض الملفات المرفوعة ديناميكياً من لوحة التحكم -->
+            <div class="files-grid" id="filesContainer" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-top: 20px;">
+                <!-- سيقوم خادم Render بملء الملفات المرفوعة هنا تلقائياً -->
+            </div>
+
+            <div class="drive-link-container" style="text-align: center; margin-top: 40px; margin-bottom: 30px;">
                 <div style="background-color: #f8fafc; border: 2px dashed #0284c7; padding: 40px 20px; border-radius: 16px; max-width: 500px; margin: 0 auto; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
                     <div style="font-size: 45px; margin-bottom: 15px;">📁</div>
                     <h3 style="color: #0f172a; font-weight: 700; margin-bottom: 10px; font-size: 20px;">سحابة الملفات المشتركة</h3>
                     <p style="color: #64748b; font-size: 14px; margin-bottom: 25px;">اضغط على الزر أدناه للانتقال الفوري إلى المجلد السحابي المحدث تلقائياً من الإدارة واستعراض كافة المجلات والصور.</p>
                     <a href="https://drive.google.com/drive/folders/1HhS77RlgNc7ymuzaKCGSAu6IIm3qxuwm?usp=sharing" target="_blank" style="background-color: #0284c7; color: white; text-decoration: none; padding: 12px 35px; font-weight: bold; border-radius: 8px; display: inline-block; transition: background 0.3s; box-shadow: 0 4px 10px rgba(2, 132, 199, 0.3);">
-                        🚀 فتح مركز التحميل السحابي
+                        🚀 فتح micro مركز التحميل السحابي
                     </a>
                 </div>
             </div>
@@ -256,6 +264,51 @@
         </div>
     </section>
 
+    <!-- البرمجة الخاصة بالربط مع خادم ونظام Render الديناميكي -->
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('sidebarMenu');
+            if(menu) menu.classList.toggle('open');
+        }
+
+        // جلب البيانات من السيرفر بشكل تلقائي
+        async function fetchDynamicData() {
+            try {
+                // 1. جلب الإعلانات النشطة
+                const adsRes = await fetch('/api/ads');
+                if (adsRes.ok) {
+                    const ads = await fetchDynamicDataJson(adsRes);
+                    const adsContainer = document.getElementById('adsContainer');
+                    if (ads && ads.length > 0 && adsContainer) {
+                        adsContainer.innerHTML = ads.map(ad => `<p>✨ ${ad.content}</p>`).join('');
+                    }
+                }
+
+                // 2. جلب الملفات المرفوعة للمكتبة
+                const filesRes = await fetch('/api/files');
+                if (filesRes.ok) {
+                    const files = await fetchDynamicDataJson(filesRes);
+                    const filesContainer = document.getElementById('filesContainer');
+                    if (files && files.length > 0 && filesContainer) {
+                        filesContainer.innerHTML = files.map(file => `
+                            <div style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); border: 1px solid #e2e8f0; text-align: center;">
+                                <div style="font-size: 40px; margin-bottom: 10px;">📄</div>
+                                <h4 style="margin: 0 0 10px 0; color: #1e293b; font-size: 16px;">${file.name}</h4>
+                                <a href="/uploads/${file.filename}" download style="display: inline-block; background: #0284c7; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-size: 14px; font-weight: bold; margin-top: 10px;">تحميل الملف</a>
+                            </div>
+                        `).join('');
+                    } else if (filesContainer) {
+                        filesContainer.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #64748b;">سيتم إدراج المجلات والملفات المرفوعة هنا فور رفعها من لوحة التحكم.</p>`;
+                    }
+                }
+            } catch (error) {
+                console.error("خطأ في جلب البيانات الديناميكية:", error);
+            }
+        }
+
+        async function fetchDynamicDataJson(res) { return await res.json(); }
+        window.addEventListener('DOMContentLoaded', fetchDynamicData);
+    </script>
     <script src="./script.js"></script>
 </body>
 </html>
