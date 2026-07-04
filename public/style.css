@@ -1,0 +1,316 @@
+/* الألوان الحيوية والأكاديمية والتعليمية المعتمدة */
+:root {
+    --primary-light: #f0f9ff;    /* أزرق سماوي ناعم للخلفيات الفاتحة */
+    --academic-blue: #0284c7;    /* أزرق تعليمي حيوي وواضح جداً */
+    --academic-dark: #0f172a;    /* كحلي ملكي داكن للنصوص والعناوين الهامة */
+    --vibrant-orange: #f97316;   /* برتقالي حيوي مشرق ومميز للأزرار والتفاعل */
+    --vibrant-orange-hover: #ea580c;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Cairo', sans-serif;
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #f8fafc;
+    color: var(--academic-dark);
+    line-height: 1.8; /* زيادة مسافة الأسطر لراحة القراءة المريحة */
+    font-size: 1.05rem;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* التمرير السلس وتأثير التفاعل الفخم مع الكروت والرموز */
+.q-box, .member-card, .btn, .c-box, .btn-download-center, .drive-embed-container {
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+}
+.q-box:hover, .member-card:hover, .c-box:hover {
+    transform: translateY(-8px) !important;
+    box-shadow: 0 12px 30px rgba(2, 132, 199, 0.15) !important;
+}
+
+/* الشريط العلوي */
+.top-bar {
+    background-color: var(--academic-dark);
+    color: #f1f5f9;
+    font-size: 0.9rem;
+    padding: 12px 0;
+    font-weight: 600;
+}
+.top-bar-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.top-contacts a {
+    color: #f1f5f9;
+    text-decoration: none;
+    margin-right: 15px;
+}
+
+/* الهيدر وضبط قائمة الهامبرغر لتكون ظاهرة وواضحة جداً */
+.main-header {
+    background-color: #ffffff;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+    padding: 16px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+.header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* زر الهامبرغر المطور والظاهر بشكل ممتاز على اليمين */
+.hamburger-menu {
+    font-size: 1.1rem;
+    font-weight: 700;
+    background-color: var(--primary-light);
+    border: 2px solid var(--academic-blue);
+    color: var(--academic-blue);
+    cursor: pointer;
+    padding: 8px 16px;
+    border-radius: 6px;
+    order: 1; /* التموضع الفوري على اليمين */
+    transition: all 0.3s;
+}
+.hamburger-menu:hover {
+    background-color: var(--academic-blue);
+    color: white;
+}
+
+.logo-container {
+    order: 2;
+}
+.site-logo {
+    max-height: 90px; /* تكبير الشعار قليلاً لزيادة الوضوح والظهور */
+    width: auto;
+    display: block;
+}
+
+/* القائمة المنسدلة الجانبية المتجاوبة */
+.navbar {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 290px;
+    background-color: #ffffff;
+    box-shadow: -6px 12px 25px rgba(0,0,0,0.1);
+    padding: 25px;
+    display: none; /* تفتح عند الضغط على الهامبرغر */
+    border-radius: 0 0 0 12px;
+    z-index: 999;
+    border-right: 4px solid var(--academic-blue);
+}
+.navbar.show {
+    display: block;
+}
+
+.nav-links {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    gap: 12px;
+}
+.nav-links a {
+    text-decoration: none;
+    color: #334155;
+    font-weight: 700;
+    font-size: 1.05rem;
+    display: block;
+    padding: 10px 14px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+.nav-links a:hover, .nav-links a.active {
+    background-color: var(--primary-light);
+    color: var(--academic-blue);
+}
+.btn-login {
+    background-color: var(--vibrant-orange) !important;
+    color: white !important;
+    text-align: center;
+    margin-top: 10px;
+    box-shadow: 0 4px 10px rgba(249, 115, 22, 0.2);
+}
+.btn-login:hover {
+    background-color: var(--vibrant-orange-hover) !important;
+}
+
+/* نافذة إعلاناتنا اليومية المنسقة تحت الشعار */
+.ads-section {
+    background-color: #f0fdf4;
+    border-bottom: 2px solid #bbf7d0;
+    padding: 14px 0;
+}
+.ads-box {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.ads-badge {
+    background-color: var(--vibrant-orange);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 5px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    white-space: nowrap;
+    box-shadow: 0 3px 8px rgba(249,115,22,0.15);
+}
+.ads-ticker {
+    font-weight: 700;
+    color: #166534;
+    font-size: 1rem;
+}
+
+/* قسم الترحيب والواجهة */
+.hero-section {
+    background: linear-gradient(135deg, var(--academic-blue) 0%, var(--academic-dark) 100%);
+    color: #ffffff;
+    text-align: center;
+    padding: 95px 20px;
+}
+.hero-section h2 { font-size: 2.6rem; font-weight: 900; margin-bottom: 5px; }
+.en-sub { color: #e0f2fe; margin-bottom: 20px; font-weight: 400; font-size: 1.2rem; letter-spacing: 0.5px; }
+.hero-desc { max-width: 850px; margin: 0 auto 35px auto; color: #f1f5f9; font-size: 1.15rem; font-weight: 600; }
+.hero-buttons { display: flex; justify-content: center; gap: 15px; }
+
+.btn { padding: 14px 35px; border-radius: 6px; text-decoration: none; font-weight: 700; font-size: 1.05rem; transition: all 0.3s; display: inline-block; }
+.btn-primary { background-color: var(--vibrant-orange); color: white; box-shadow: 0 4px 12px rgba(249,115,22,0.3); }
+.btn-primary:hover { background-color: var(--vibrant-orange-hover); transform: scale(1.03); }
+.btn-secondary { background-color: transparent; color: white; border: 2px solid white; }
+.btn-secondary:hover { background-color: white; color: var(--academic-dark); }
+
+/* الأقسام وتنسيق النصوص والخطوط */
+.scopus-section, .about-section, .team-section, .partners-section, .download-center-section { padding: 75px 0; border-bottom: 1px solid #e2e8f0; }
+.section-title { text-align: center; font-size: 2.1rem; color: var(--academic-blue); margin-bottom: 40px; font-weight: 900; }
+.sub-title { text-align: center; font-size: 1.45rem; margin: 25px 0; color: var(--academic-blue); font-weight: 700; }
+
+.about-grid, .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 30px;
+}
+.about-box, .feature-card, .cond-item, .member-card {
+    background: white; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+}
+.about-box { border-right: 6px solid var(--academic-blue); }
+.about-box h3, .feature-card h4 { color: var(--academic-blue); margin-bottom: 12px; font-weight: 700; }
+
+/* تنسيق قسم المكتبة الرقمية المطور (تضمين جوجل درايف الحي) */
+.download-center-section {
+    background-color: #f8fafc;
+    text-align: center;
+}
+.library-desc {
+    max-width: 750px;
+    margin: 0 auto 30px auto;
+    color: #475569;
+    font-weight: 600;
+}
+.drive-embed-container {
+    max-width: 950px;
+    margin: 0 auto;
+    border: 3px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+    background: #ffffff;
+}
+.drive-iframe {
+    border: none;
+    display: block;
+}
+.drive-embed-container:hover {
+    border-color: var(--academic-blue);
+    box-shadow: 0 12px 35px rgba(2, 132, 199, 0.12) !important;
+}
+
+/* مستويات سكوباس وتصاميمها */
+.quartiles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+}
+.q-box { 
+    padding: 35px 25px; 
+    text-align: center; 
+    border-radius: 12px; 
+    color: white; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    gap: 18px; 
+    box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+}
+.q-logo { 
+    height: 100px !important;   
+    width: auto !important; 
+    max-width: 95% !important;
+    object-fit: contain !important;
+    filter: none !important;      
+}
+.q1 { background-color: #0284c7; }
+.q2 { background-color: #0ea5e9; }
+.q3 { background-color: #38bdf8; color: var(--academic-dark); }
+.q4 { background-color: #7dd3fc; color: var(--academic-dark); }
+
+/* تنسيق قسم الاعتمادات والشراكات المضافة حديثاً */
+.partners-text-box {
+    background-color: white;
+    padding: 35px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.01);
+    border-right: 6px solid var(--vibrant-orange);
+    margin-bottom: 45px;
+}
+.p-text-item { margin-bottom: 20px; }
+.p-text-item h5 { font-size: 1.2rem; color: var(--academic-blue); font-weight: 700; margin-bottom: 6px; }
+.p-patents-list { margin-right: 25px; margin-top: 8px; list-style-type: square; color: #475569; }
+
+.partners-grid { display: flex; justify-content: center; align-items: center; gap: 45px; flex-wrap: wrap; }
+.large-partner-logo { height: 85px; width: auto; object-fit: contain; transition: transform 0.3s ease; }
+.large-partner-logo:hover { transform: scale(1.08); }
+
+/* فريق العمل وقسم التواصل */
+.team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 25px; }
+.member-card { text-align: center; border-top: 4px solid var(--academic-blue); }
+.member-card h4 { font-weight: 700; margin-bottom: 5px; color: var(--academic-dark); }
+.member-card .role { color: var(--academic-blue); font-weight: 600; font-size: 0.95rem; }
+
+.conditions-box { background-color: #f1f5f9; padding: 35px; border-radius: 10px; margin-top: 35px; }
+.cond-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+
+.contact-section { background: linear-gradient(135deg, var(--primary-light) 0%, #e0f2fe 100%); text-align: center; }
+.contact-subtitle { font-weight: 600; color: #475569; }
+.contact-boxes { display: flex; justify-content: center; gap: 25px; flex-wrap: wrap; margin-top: 30px; }
+.c-box { background: white; padding: 30px; border-radius: 10px; text-decoration: none; color: inherit; width: 340px; box-shadow: 0 6px 15px rgba(0,0,0,0.02); }
+.contact-num, .contact-mail { font-weight: 700; color: var(--academic-blue); margin-top: 5px; }
+
+.main-footer { background-color: var(--academic-dark); color: #94a3b8; text-align: center; padding: 30px 0; font-size: 0.95rem; font-weight: 600; }
+
+/* شاشات أجهزة الحاسوب اللوحي والمحمول */
+@media (max-width: 991px) {
+    .navbar { width: 100%; border-left: none; border-radius: 0; }
+}
+@media (max-width: 768px) {
+    .hero-section h2 { font-size: 2rem; }
+    .hero-buttons { flex-direction: column; align-items: center; }
+    .btn { width: 100%; max-width: 300px; }
+    .ads-box { flex-direction: column; text-align: center; }
+    .drive-embed-container { height: 450px; }
+}
